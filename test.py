@@ -9,19 +9,19 @@ screen.bgcolor('black')
 screen.delay(0)
 
 turtle.hideturtle()
-turtle.tracer(0)
+#turtle.tracer(0)
 
 leo = turtle.Turtle()
 leo.pensize(1)
-leo.speed(0)
+leo.speed(3)
 leo.setpos(0, -HEIGHT // 2 + 50)
 leo.color('green')
 
-gens = 9
-axiom = 'XY'
+gens = 4
+axiom = 'X'
 
-rules = { 'F' : 'F', \
-        'X' : 'F[@[+X][FX]-X]', \
+rules = { 'F' : 'FF', \
+        'X' : 'F@[+X]F[-X]X', \
         'Y' : 'Y', \
         '-' : '-', \
         '+' : '+', \
@@ -30,14 +30,14 @@ rules = { 'F' : 'F', \
         '@' : '@', \
         'Z' : 'Z'}
 
-step = 80
+step = 30
 def angle(i):
-    return randint(0, max(2,60 - i))
+    #return randint(0, max(2,60 - i))
+    return 45
 color = [0.45, 0.2, 0.0]
-thickness = 15
+thickness = 7
 
 def apply_rules(axiom):
-    print(">>>"+axiom)
     axiTemp = ""
     for ch in axiom:
         axiTemp += rules[ch]
@@ -46,6 +46,7 @@ def apply_rules(axiom):
 def get_result(gens, axiom):
     for gen in range(gens):
         axiom = apply_rules(axiom)
+    print(">>>"+axiom)
     return axiom
 
 stack = []
@@ -70,7 +71,7 @@ for ch in axiom:
         leo.forward(step)
     elif ch == '@':
         i = i + 1
-        step *= 0.75
+        step *= 0.85
         #step = max(2, step)
         #thickness *= 0.65
         thickness *= 0.77
